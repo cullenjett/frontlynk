@@ -6,29 +6,22 @@
 
 Run the Express server with Vite dev middleware:
 
-```shellscript
+```sh
 npm run dev
 ```
 
-## Deployment
+### Changes
 
-First, build your app for production:
+List of changes made to the default Remix/Express template:
 
-```sh
-npm run build
-```
-
-Then run the app in production mode:
-
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying Express applications you should be right at home. Just make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
+- [x] Docker
+- [x] Prettier
+- [x] Vitest
+- [x] Github Actions
+- [x] PR template
+- [x] ESLint changes
+- [ ] Tailwind
+- [ ] Shadcn UI
+- [ ] Cypress
+- [ ] Browser env vars
+- [ ] Deploy to Digital Ocean k8s cluster
