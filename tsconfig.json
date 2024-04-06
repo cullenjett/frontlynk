@@ -1,12 +1,5 @@
 {
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "**/.server/**/*.ts",
-    "**/.server/**/*.tsx",
-    "**/.client/**/*.ts",
-    "**/.client/**/*.tsx"
-  ],
+  "include": ["**/*.ts", "**/*.tsx"],
   "compilerOptions": {
     "allowJs": true,
     "baseUrl": ".",
@@ -18,6 +11,8 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "noEmit": true,
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
     "paths": {
       "~/*": ["./app/*"]
     },

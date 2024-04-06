@@ -47,4 +47,4 @@ COPY --from=build /frontlynk/package.json ./package.json
 COPY --from=build /frontlynk/server.js ./server.js
 COPY --from=build /frontlynk/start.sh ./start.sh
 
-ENTRYPOINT [ "./start.sh" ]
+ENTRYPOINT [ "node", "server.js" ]
