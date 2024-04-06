@@ -3,8 +3,8 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration,
-} from "@remix-run/react";
+  ScrollRestoration
+} from '@remix-run/react';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
