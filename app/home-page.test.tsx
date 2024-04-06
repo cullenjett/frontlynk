@@ -1,6 +1,7 @@
 import { createRemixStub } from '@remix-run/testing';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
+
 import Index from '~/routes/_index';
 
 describe('home page', () => {
