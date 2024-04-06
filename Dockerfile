@@ -7,7 +7,7 @@ ENV NODE_ENV production
 # Install all node_modules, including dev dependencies
 FROM base as deps
 
-WORKDIR /frontlynk
+WORKDIR /myapp
 
 ADD package.json package-lock.json ./
 RUN npm install --include=dev
@@ -15,18 +15,18 @@ RUN npm install --include=dev
 # Setup production node_modules
 FROM base as production-deps
 
-WORKDIR /frontlynk
+WORKDIR /myapp
 
-COPY --from=deps /frontlynk/node_modules ./node_modules
+COPY --from=deps /myapp/node_modules ./node_modules
 ADD package.json package-lock.json ./
 RUN npm prune --omit=dev
 
 # Build the app
 FROM base as build
 
-WORKDIR /frontlynk
+WORKDIR /myapp
 
-COPY --from=deps /frontlynk/node_modules ./node_modules
+COPY --from=deps /myapp/node_modules ./node_modules
 
 ADD . .
 RUN npm run build
@@ -37,14 +37,13 @@ FROM base
 ENV PORT="3000"
 ENV NODE_ENV="production"
 
-WORKDIR /frontlynk
+WORKDIR /myapp
 
-COPY --from=production-deps /frontlynk/node_modules ./node_modules
+COPY --from=production-deps /myapp/node_modules ./node_modules
 
-COPY --from=build /frontlynk/build ./build
-COPY --from=build /frontlynk/public ./public
-COPY --from=build /frontlynk/package.json ./package.json
-COPY --from=build /frontlynk/server.js ./server.js
-COPY --from=build /frontlynk/start.sh ./start.sh
+COPY --from=build /myapp/build ./build
+COPY --from=build /myapp/public ./public
+COPY --from=build /myapp/package.json ./package.json
+COPY --from=build /myapp/server.js ./server.js
 
 ENTRYPOINT [ "node", "server.js" ]

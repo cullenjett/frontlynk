@@ -37,34 +37,31 @@ module.exports = {
         linkComponents: [
           { name: 'Link', linkAttribute: 'to' },
           { name: 'NavLink', linkAttribute: 'to' }
-        ],
-        'import/resolver': {
-          typescript: {}
-        }
+        ]
       }
     },
 
     // Typescript
     {
       files: ['**/*.{ts,tsx}'],
-      plugins: ['@typescript-eslint', 'import'],
+      plugins: ['@typescript-eslint'],
       parser: '@typescript-eslint/parser',
-      settings: {
-        'import/internal-regex': '^~/',
-        'import/resolver': {
-          node: {
-            extensions: ['.ts', '.tsx']
-          },
-          typescript: {
-            alwaysTryTypes: true
+      settings: {},
+      extends: ['plugin:@typescript-eslint/recommended'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': [
+          'warn',
+          {
+            args: 'all',
+            argsIgnorePattern: '^_',
+            caughtErrors: 'all',
+            caughtErrorsIgnorePattern: '^_',
+            destructuredArrayIgnorePattern: '^_',
+            varsIgnorePattern: '^_',
+            ignoreRestSiblings: true
           }
-        }
-      },
-      extends: [
-        'plugin:@typescript-eslint/recommended',
-        'plugin:import/recommended',
-        'plugin:import/typescript'
-      ]
+        ]
+      }
     },
 
     // Node
