@@ -19,9 +19,13 @@ List of changes made to the default Remix/Express template:
 - [x] Vitest
 - [x] Github Actions
 - [x] PR template
-- [x] ESLint changes
-- [ ] Tailwind
-- [ ] Shadcn UI
+- [x] ESLint
+- [x] Tailwind
+- [x] Shadcn UI
 - [ ] Cypress
+- [ ] Conform
 - [ ] Browser env vars
-- [ ] Deploy to Digital Ocean k8s cluster
+- [ ] Sentry
+- [ ] Error Boundary
+- [ ] Authentication
+- [ ] Deploy
