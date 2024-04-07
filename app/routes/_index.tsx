@@ -50,7 +50,7 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="hidden bg-muted bg-burnt-sienna-400 lg:block"></div>
+      <div className="hidden bg-burnt-sienna-400 lg:block"></div>
     </div>
   );
 }
@@ -91,7 +91,7 @@ function DemoForm() {
       />
 
       {actionData?.success ? (
-        <div className="relative flex justify-center items-center bg-emerald-100 h-10 rounded border-l-4 border-emerald-900">
+        <div className="relative flex justify-center items-center bg-emerald-100 h-11 rounded border-l-4 border-emerald-900">
           <p className="font-medium text-sm text-emerald-900">
             Login successful
           </p>
