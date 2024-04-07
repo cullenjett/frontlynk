@@ -4,6 +4,7 @@ import type {
   MetaFunction
 } from '@remix-run/node';
 import { Form, json, useActionData } from '@remix-run/react';
+import { useEffect } from 'react';
 
 import { Field } from '~/components/forms';
 import { Button } from '~/components/ui/button';
@@ -73,6 +74,12 @@ export default function Index() {
 function LoginForm() {
   const actionData = useActionData<typeof action>();
 
+  useEffect(() => {
+    if (actionData?.errors) {
+      document.querySelector<HTMLInputElement>('[aria-invalid]')?.focus();
+    }
+  }, [actionData]);
+
   return (
     <Form className="grid gap-6" method="post">
       <Field
@@ -80,7 +87,8 @@ function LoginForm() {
         inputProps={{
           name: 'email',
           type: 'email',
-          autoComplete: 'off'
+          autoComplete: 'off',
+          autoFocus: true
         }}
         error={actionData?.errors?.email}
       />
