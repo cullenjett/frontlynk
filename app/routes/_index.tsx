@@ -1,5 +1,5 @@
 import type { ActionFunctionArgs, MetaFunction } from '@remix-run/node';
-import { Form, json, useActionData, useFormAction } from '@remix-run/react';
+import { Form, json, useActionData } from '@remix-run/react';
 
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
@@ -14,7 +14,7 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div className="w-full h-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+    <div className="w-full h-full lg:grid lg:grid-cols-2">
       <div className="flex items-center justify-center py-12 px-5 h-full">
         <div className="mx-auto w-[350px] grid gap-8">
           <div className="grid gap-2 text-center">
@@ -97,20 +97,24 @@ function DemoForm() {
         </div>
       </div>
 
-      <Button type="submit" className="w-full">
-        Login
-      </Button>
+      {actionData?.success ? (
+        <div className="relative flex justify-center items-center bg-emerald-100 h-10 rounded border-l-4 border-emerald-900">
+          <p className="font-medium text-sm text-emerald-900">
+            Login successful
+          </p>
+        </div>
+      ) : (
+        <Button type="submit" className="w-full">
+          Login
+        </Button>
+      )}
 
-      <div className="mt-4 text-center text-sm">
+      <p className="mt-4 text-center text-sm">
         Don't have an account?{' '}
         <a href="/register" className="underline">
           Sign up
         </a>
-      </div>
-
-      {actionData?.success && (
-        <p className="font-medium text-md text-emerald-800">Success</p>
-      )}
+      </p>
     </Form>
   );
 }
