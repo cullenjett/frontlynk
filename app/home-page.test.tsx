@@ -15,8 +15,6 @@ describe('home page', () => {
 
     render(<App initialEntries={['/']} />);
 
-    expect(
-      screen.getByRole('heading', { name: /Welcome to Remix/i })
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Login/i })).toBeInTheDocument();
   });
 });
