@@ -16,16 +16,16 @@ List of changes made to the default Remix/Express template:
 
 - [x] Docker
 - [x] Prettier
-- [x] Vitest
+- [x] [Vitest](https://vitest.dev/)
 - [x] Github Actions
 - [x] PR template
 - [x] ESLint
-- [x] Tailwind
-- [x] Shadcn UI
+- [x] [Tailwind](https://tailwindcss.com/)
+- [x] [Shadcn UI](https://ui.shadcn.com/)
+- [x] [Remix Auth](https://github.com/sergiodxa/remix-auth)
 - [ ] Cypress
 - [ ] Conform
 - [ ] Browser env vars
 - [ ] Sentry
 - [ ] Error Boundary
-- [ ] Authentication
 - [ ] Deploy

@@ -64,7 +64,8 @@ module.exports = {
             varsIgnorePattern: '^_',
             ignoreRestSiblings: true
           }
-        ]
+        ],
+        'prefer-const': 'off'
       }
     },
 
