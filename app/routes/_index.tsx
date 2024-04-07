@@ -1,9 +1,14 @@
-import type { ActionFunctionArgs, MetaFunction } from '@remix-run/node';
+import type {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+  MetaFunction
+} from '@remix-run/node';
 import { Form, json, useActionData } from '@remix-run/react';
 
 import { Field } from '~/components/forms';
 import { Button } from '~/components/ui/button';
 import { Label } from '~/components/ui/label';
+import { authenticator } from '~/lib/auth.server';
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,6 +16,12 @@ export const meta: MetaFunction = () => {
     { name: 'description', content: 'Welcome to Remix!' }
   ];
 };
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  return await authenticator.isAuthenticated(request, {
+    successRedirect: '/dashboard'
+  });
+}
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -23,15 +34,19 @@ export async function action({ request }: ActionFunctionArgs) {
     errors.email = 'Invalid email address';
   }
 
-  if (password.length < 8) {
-    errors.password = 'Password must be at least 8 characters';
+  if (password.length < 4) {
+    errors.password = 'Password must be at least 4 characters';
   }
 
   if (Object.keys(errors).length > 0) {
     return json({ success: false, errors });
   }
 
-  return json({ success: true, errors: null });
+  return await authenticator.authenticate('login-form', request, {
+    successRedirect: '/dashboard',
+    failureRedirect: '/',
+    context: { formData }
+  });
 }
 
 export default function Index() {
@@ -42,11 +57,11 @@ export default function Index() {
           <div className="grid gap-2 text-center">
             <h1 className="text-3xl font-bold">Login</h1>
             <p className="text-balance text-muted-foreground">
-              Enter your email and password to login to your account
+              Enter your email and password
             </p>
           </div>
 
-          <DemoForm />
+          <LoginForm />
         </div>
       </div>
 
@@ -55,7 +70,7 @@ export default function Index() {
   );
 }
 
-function DemoForm() {
+function LoginForm() {
   const actionData = useActionData<typeof action>();
 
   return (
@@ -90,17 +105,9 @@ function DemoForm() {
         error={actionData?.errors?.password}
       />
 
-      {actionData?.success ? (
-        <div className="relative flex justify-center items-center bg-emerald-100 h-11 rounded border-l-4 border-emerald-900">
-          <p className="font-medium text-sm text-emerald-900">
-            Login successful
-          </p>
-        </div>
-      ) : (
-        <Button type="submit" className="w-full">
-          Login
-        </Button>
-      )}
+      <Button type="submit" className="w-full">
+        Login
+      </Button>
 
       <p className="mt-4 text-center text-sm">
         Don't have an account?{' '}
