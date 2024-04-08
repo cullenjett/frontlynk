@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer base {
+  /* CSS variables primarily used by shadcn ui */
   :root {
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
@@ -67,10 +68,25 @@
 }
 
 @layer base {
+  @font-face {
+    font-display: swap;
+    font-family: 'Inter';
+    src: url('/fonts/inter.woff2') format('woff2');
+  }
+
   * {
     @apply border-border;
   }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
   body {
     @apply bg-background text-foreground;
+  }
+
+  a {
+    @apply text-primary ring-offset-background focus-visible:ring-ring underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4;
   }
 }

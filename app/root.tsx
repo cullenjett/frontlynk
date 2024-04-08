@@ -1,3 +1,4 @@
+import { LinksFunction } from '@remix-run/node';
 import {
   Links,
   Meta,
@@ -6,7 +7,20 @@ import {
   ScrollRestoration
 } from '@remix-run/react';
 
-import './tailwind.css';
+import tailwind from './tailwind.css?url';
+
+export const links: LinksFunction = () => {
+  return [
+    {
+      rel: 'preload',
+      href: '/fonts/inter.woff2',
+      as: 'font',
+      type: 'font/woff2',
+      crossOrigin: 'anonymous'
+    },
+    { rel: 'stylesheet', href: tailwind }
+  ];
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
