@@ -23,8 +23,8 @@ List of changes made to the default Remix/Express template:
 - [x] [Tailwind](https://tailwindcss.com/)
 - [x] [Shadcn UI](https://ui.shadcn.com/)
 - [x] [Remix Auth](https://github.com/sergiodxa/remix-auth)
+- [x] [Conform](https://conform.guide/)
 - [ ] Cypress
-- [ ] Conform
 - [ ] Browser env vars
 - [ ] Sentry
 - [ ] Error Boundary

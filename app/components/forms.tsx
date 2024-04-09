@@ -6,7 +6,7 @@ import { cn } from '~/lib/styles';
 
 interface FieldProps {
   className?: string;
-  error?: React.ReactNode;
+  errors?: string[];
   inputProps: React.ComponentProps<typeof Input>;
   label?: React.ReactNode;
   renderLabel?(labelProps: React.ComponentProps<typeof Label>): JSX.Element;
@@ -14,25 +14,25 @@ interface FieldProps {
 
 export function Field({
   className,
-  error,
+  errors,
   inputProps,
   label,
   renderLabel
 }: FieldProps) {
   const fallbackId = useId();
   const id = inputProps.id ?? fallbackId;
-  const errorId = error ? `${id}-error` : undefined;
+  const errorId = errors?.length ? `${id}-error` : undefined;
 
   return (
     <div className={cn('grid gap-2', className)}>
       {label ? (
-        <Label htmlFor={id} variant={error ? 'destructive' : 'default'}>
+        <Label htmlFor={id} variant={errorId ? 'destructive' : 'default'}>
           {label}
         </Label>
       ) : renderLabel ? (
         renderLabel({
           htmlFor: id,
-          variant: error ? 'destructive' : 'default'
+          variant: errorId ? 'destructive' : 'default'
         })
       ) : null}
 
@@ -44,23 +44,27 @@ export function Field({
           {...inputProps}
         />
 
-        {error && <FieldError id={errorId}>{error}</FieldError>}
+        {errorId && <FieldErrors id={errorId} errors={errors} />}
       </div>
     </div>
   );
 }
 
-function FieldError({
-  children,
-  className,
-  ...rest
-}: React.ComponentProps<'p'>) {
+interface FieldErrorsProps {
+  id: string;
+  errors?: string[];
+}
+
+export function FieldErrors({ id, errors }: FieldErrorsProps) {
+  if (!errors?.length) return null;
+
   return (
-    <p
-      className={cn(className, 'text-xs font-medium text-destructive')}
-      {...rest}
-    >
-      {children}
-    </p>
+    <ul id={id} className="flex flex-col gap-1">
+      {errors.map((e) => (
+        <li key={e} className="text-xs font-medium text-destructive">
+          {e}
+        </li>
+      ))}
+    </ul>
   );
 }

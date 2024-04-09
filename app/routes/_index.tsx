@@ -1,10 +1,12 @@
+import { useForm, getInputProps, getFormProps } from '@conform-to/react';
+import { getZodConstraint, parseWithZod } from '@conform-to/zod';
 import type {
   ActionFunctionArgs,
   LoaderFunctionArgs,
   MetaFunction
 } from '@remix-run/node';
-import { Form, json, useActionData } from '@remix-run/react';
-import { useEffect } from 'react';
+import { Form, useActionData } from '@remix-run/react';
+import { z } from 'zod';
 
 import { Field } from '~/components/forms';
 import { Button } from '~/components/ui/button';
@@ -24,23 +26,19 @@ export async function loader({ request }: LoaderFunctionArgs) {
   });
 }
 
+const schema = z.object({
+  email: z.string({ required_error: 'Email is required' }).email(),
+  password: z
+    .string({ required_error: 'Password is required' })
+    .min(4, 'Password must be at least 4 characters')
+});
+
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  const email = String(formData.get('email'));
-  const password = String(formData.get('password'));
 
-  const errors: Record<string, string> = {};
-
-  if (!email.includes('@')) {
-    errors.email = 'Invalid email address';
-  }
-
-  if (password.length < 4) {
-    errors.password = 'Password must be at least 4 characters';
-  }
-
-  if (Object.keys(errors).length > 0) {
-    return json({ success: false, errors });
+  const submission = await parseWithZod(formData, { schema });
+  if (submission.status !== 'success') {
+    return submission.reply();
   }
 
   return await authenticator.authenticate('login-form', request, {
@@ -72,25 +70,25 @@ export default function Index() {
 }
 
 function LoginForm() {
-  const actionData = useActionData<typeof action>();
-
-  useEffect(() => {
-    if (actionData?.errors) {
-      document.querySelector<HTMLInputElement>('[aria-invalid]')?.focus();
+  const lastResult = useActionData<typeof action>();
+  const [form, fields] = useForm({
+    lastResult,
+    constraint: getZodConstraint(schema),
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema });
     }
-  }, [actionData]);
+  });
 
   return (
-    <Form className="grid gap-6" method="post">
+    <Form className="grid gap-6" method="post" {...getFormProps(form)}>
       <Field
         label="Email"
         inputProps={{
-          name: 'email',
-          type: 'email',
+          ...getInputProps(fields.email, { type: 'email' }),
           autoComplete: 'off',
           autoFocus: true
         }}
-        error={actionData?.errors?.email}
+        errors={fields.email.errors}
       />
 
       <Field
@@ -106,11 +104,10 @@ function LoginForm() {
           </div>
         )}
         inputProps={{
-          name: 'password',
-          type: 'password',
+          ...getInputProps(fields.password, { type: 'password' }),
           autoComplete: 'off'
         }}
-        error={actionData?.errors?.password}
+        errors={fields.password.errors}
       />
 
       <Button type="submit" className="w-full">
