@@ -87,6 +87,6 @@
   }
 
   a {
-    @apply text-primary ring-offset-background focus-visible:ring-ring underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4;
+    @apply text-primary focus-visible:ring-ring -my-1 inline-block rounded py-1 underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2;
   }
 }

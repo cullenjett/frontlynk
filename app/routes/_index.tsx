@@ -5,7 +5,7 @@ import type {
   LoaderFunctionArgs,
   MetaFunction
 } from '@remix-run/node';
-import { Form, useActionData } from '@remix-run/react';
+import { Form, Link, useActionData } from '@remix-run/react';
 import { z } from 'zod';
 
 import { Field } from '~/components/forms';
@@ -55,7 +55,7 @@ export default function Index() {
         <div className="mx-auto w-[350px] grid gap-8">
           <div className="grid gap-2 text-center">
             <h1 className="text-3xl font-bold">Login</h1>
-            <p className="text-balance text-muted-foreground">
+            <p className="text-muted-foreground">
               Enter your email and password
             </p>
           </div>
@@ -85,7 +85,7 @@ function LoginForm() {
         label="Email"
         inputProps={{
           ...getInputProps(fields.email, { type: 'email' }),
-          autoComplete: 'off',
+          autoComplete: 'email',
           autoFocus: true
         }}
         errors={fields.email.errors}
@@ -93,19 +93,16 @@ function LoginForm() {
 
       <Field
         renderLabel={(labelProps) => (
-          <div className="flex items-center">
+          <div className="flex items-center relative">
             <Label {...labelProps}>Password</Label>
-            <a
-              href="/forgot-password"
-              className="ml-auto inline-block text-sm underline"
-            >
+            <Link to="/forgot-password" className="ml-auto text-xs underline">
               Forgot your password?
-            </a>
+            </Link>
           </div>
         )}
         inputProps={{
           ...getInputProps(fields.password, { type: 'password' }),
-          autoComplete: 'off'
+          autoComplete: 'current-password'
         }}
         errors={fields.password.errors}
       />
@@ -116,9 +113,9 @@ function LoginForm() {
 
       <p className="mt-4 text-center text-sm">
         Don't have an account?{' '}
-        <a href="/register" className="underline">
+        <Link to="/register" className="underline">
           Sign up
-        </a>
+        </Link>
       </p>
     </Form>
   );

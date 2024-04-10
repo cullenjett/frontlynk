@@ -7,6 +7,7 @@ import { cn } from '~/lib/styles';
 interface FieldProps {
   className?: string;
   errors?: string[];
+  helpText?: React.ReactNode;
   inputProps: React.ComponentProps<typeof Input>;
   label?: React.ReactNode;
   renderLabel?(labelProps: React.ComponentProps<typeof Label>): JSX.Element;
@@ -15,6 +16,7 @@ interface FieldProps {
 export function Field({
   className,
   errors,
+  helpText,
   inputProps,
   label,
   renderLabel
@@ -22,6 +24,7 @@ export function Field({
   const fallbackId = useId();
   const id = inputProps.id ?? fallbackId;
   const errorId = errors?.length ? `${id}-error` : undefined;
+  const helpTextId = helpText ? `${id}-help-text` : undefined;
 
   return (
     <div className={cn('grid gap-2', className)}>
@@ -36,16 +39,23 @@ export function Field({
         })
       ) : null}
 
-      <div className="grid gap-1">
-        <Input
-          id={id}
-          aria-invalid={errorId ? true : undefined}
-          aria-describedby={errorId}
-          {...inputProps}
-        />
+      <Input
+        id={id}
+        aria-invalid={errorId ? true : undefined}
+        aria-describedby={errorId || helpTextId}
+        {...inputProps}
+      />
 
-        {errorId && <FieldErrors id={errorId} errors={errors} />}
-      </div>
+      {helpTextId && (
+        <p
+          id={helpTextId}
+          className="text-xs text-muted-foreground font-medium"
+        >
+          {helpText}
+        </p>
+      )}
+
+      {errorId && <FieldErrors id={errorId} errors={errors} />}
     </div>
   );
 }
