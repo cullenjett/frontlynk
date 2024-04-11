@@ -25,6 +25,7 @@ List of changes made to the default Remix/Express template:
 - [x] [Remix Auth](https://github.com/sergiodxa/remix-auth)
 - [x] [Conform](https://conform.guide/)
 - [x] [Playwright](https://playwright.dev/)
+- [ ] API client
 - [ ] Browser env vars
 - [ ] Sentry
 - [ ] Error Boundary
