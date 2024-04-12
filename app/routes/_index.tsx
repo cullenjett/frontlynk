@@ -5,7 +5,13 @@ import type {
   LoaderFunctionArgs,
   MetaFunction
 } from '@remix-run/node';
-import { Form, Link, redirect, useActionData } from '@remix-run/react';
+import {
+  Form,
+  Link,
+  redirect,
+  useActionData,
+  useNavigation
+} from '@remix-run/react';
 import { z } from 'zod';
 
 import { Field } from '~/components/forms';
@@ -45,6 +51,7 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   // TODO: validate credentials
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const session = await sessionStorage.getSession(
     request.headers.get('Cookie')
@@ -82,6 +89,7 @@ export default function Index() {
 }
 
 function LoginForm() {
+  const navigation = useNavigation();
   const lastResult = useActionData<typeof action>();
   const [form, fields] = useForm({
     lastResult,
@@ -107,7 +115,7 @@ function LoginForm() {
         renderLabel={(labelProps) => (
           <div className="flex items-center relative">
             <Label {...labelProps}>Password</Label>
-            <Link to="/forgot-password" className="ml-auto text-xs underline">
+            <Link to="/forgot-password" className="ml-auto text-xs">
               Forgot your password?
             </Link>
           </div>
@@ -119,15 +127,16 @@ function LoginForm() {
         errors={fields.password.errors}
       />
 
-      <Button type="submit" className="w-full">
+      <Button
+        type="submit"
+        className="w-full"
+        isLoading={navigation.state === 'submitting'}
+      >
         Login
       </Button>
 
       <p className="mt-4 text-center text-sm">
-        Don't have an account?{' '}
-        <Link to="/register" className="underline">
-          Sign up
-        </Link>
+        Don't have an account? <Link to="/register">Sign up</Link>
       </p>
     </Form>
   );
