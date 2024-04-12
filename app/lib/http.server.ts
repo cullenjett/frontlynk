@@ -17,6 +17,8 @@ export interface HttpClientArgs {
 }
 type HttpClientRequestBody = FormData | string | object;
 
+export type HttpClient = ReturnType<typeof createServerHttpClient>;
+
 export const createServerHttpClient = ({
   baseUrl,
   fetch = global.fetch,

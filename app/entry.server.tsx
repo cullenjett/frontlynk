@@ -10,7 +10,12 @@ import { isbot } from 'isbot';
 import { PassThrough } from 'node:stream';
 import { renderToPipeableStream } from 'react-dom/server';
 
+import { getPublicEnv, initEnv } from '~/lib/env.server';
+
 const ABORT_DELAY = 5_000;
+
+initEnv();
+global.ENV = getPublicEnv();
 
 export default function handleRequest(
   request: Request,

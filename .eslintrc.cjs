@@ -66,7 +66,8 @@ module.exports = {
             ignoreRestSiblings: true
           }
         ],
-        'prefer-const': 'off'
+        'prefer-const': 'off',
+        '@typescript-eslint/no-namespace': 'off'
       }
     },
 
