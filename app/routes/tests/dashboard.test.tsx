@@ -1,6 +1,5 @@
 import { describe, expect, test } from 'vitest';
 
-import { authenticator } from '~/lib/auth.server';
 import { sessionStorage } from '~/lib/session.server';
 import { loader } from '~/routes/dashboard';
 
@@ -8,7 +7,7 @@ describe('Dashboard', () => {
   test('Loader - is signed in', async () => {
     const session = await sessionStorage.getSession();
     const fakeUser = { email: 'test@example.com' };
-    session.set(authenticator.sessionKey, fakeUser);
+    session.set('user', fakeUser);
     const request = new Request('http://localhost:3000/dashboard', {
       headers: { Cookie: await sessionStorage.commitSession(session) }
     });

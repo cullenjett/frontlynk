@@ -22,7 +22,7 @@ List of changes made to the default Remix/Express template:
 - [x] ESLint
 - [x] [Tailwind](https://tailwindcss.com/)
 - [x] [Shadcn UI](https://ui.shadcn.com/)
-- [x] [Remix Auth](https://github.com/sergiodxa/remix-auth)
+- [x] [Session Auth](https://remix.run/docs/en/main/utils/sessions)
 - [x] [Conform](https://conform.guide/)
 - [x] [Playwright](https://playwright.dev/)
 - [ ] API client

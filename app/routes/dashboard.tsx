@@ -1,19 +1,35 @@
-import { ActionFunctionArgs, LoaderFunctionArgs, json } from '@remix-run/node';
+import {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+  json,
+  redirect
+} from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 
 import { Button } from '~/components/ui/button';
-import { authenticator } from '~/lib/auth.server';
+import { sessionStorage } from '~/lib/session.server';
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const user = await authenticator.isAuthenticated(request, {
-    failureRedirect: '/'
-  });
+  const session = await sessionStorage.getSession(
+    request.headers.get('Cookie')
+  );
+  const user = session.get('user');
+  if (!user) {
+    throw redirect('/');
+  }
 
   return json({ user });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
-  return await authenticator.logout(request, { redirectTo: '/' });
+  const session = await sessionStorage.getSession(
+    request.headers.get('Cookie')
+  );
+  return redirect('/', {
+    headers: {
+      'Set-Cookie': await sessionStorage.destroySession(session)
+    }
+  });
 }
 
 export default function Dashboard() {

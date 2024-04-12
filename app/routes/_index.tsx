@@ -5,13 +5,13 @@ import type {
   LoaderFunctionArgs,
   MetaFunction
 } from '@remix-run/node';
-import { Form, Link, useActionData } from '@remix-run/react';
+import { Form, Link, redirect, useActionData } from '@remix-run/react';
 import { z } from 'zod';
 
 import { Field } from '~/components/forms';
 import { Button } from '~/components/ui/button';
 import { Label } from '~/components/ui/label';
-import { authenticator } from '~/lib/auth.server';
+import { sessionStorage } from '~/lib/session.server';
 
 export const meta: MetaFunction = () => {
   return [
@@ -21,9 +21,13 @@ export const meta: MetaFunction = () => {
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  return await authenticator.isAuthenticated(request, {
-    successRedirect: '/dashboard'
-  });
+  const session = await sessionStorage.getSession(
+    request.headers.get('Cookie')
+  );
+  if (session.has('user')) {
+    return redirect('/dashboard');
+  }
+  return null;
 }
 
 const schema = z.object({
@@ -35,16 +39,24 @@ const schema = z.object({
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-
   const submission = await parseWithZod(formData, { schema });
   if (submission.status !== 'success') {
     return submission.reply();
   }
 
-  return await authenticator.authenticate('login-form', request, {
-    successRedirect: '/dashboard',
-    failureRedirect: '/',
-    context: { formData }
+  // TODO: validate credentials
+
+  const session = await sessionStorage.getSession(
+    request.headers.get('Cookie')
+  );
+  session.set('user', {
+    email: submission.value.email
+  });
+
+  return redirect('/dashboard', {
+    headers: {
+      'Set-Cookie': await sessionStorage.commitSession(session)
+    }
   });
 }
 
