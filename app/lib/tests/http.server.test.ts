@@ -92,7 +92,9 @@ describe('createServerHttpClient', () => {
     return expect(http.get('/foo')).rejects.toEqual(
       new ServerHttpError({
         data: errorResponse,
-        request: {},
+        request: {
+          method: 'GET'
+        },
         status: 400,
         url: '/foo'
       })
@@ -180,7 +182,9 @@ describe('createServerHttpClient', () => {
     await expect(http.get('/')).rejects.toEqual(
       new ServerHttpError({
         data: '<html><h1>Unknown server error</h1></html>',
-        request: {},
+        request: {
+          method: 'GET'
+        },
         status: 500,
         url: '/'
       })

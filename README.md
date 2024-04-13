@@ -27,7 +27,7 @@ List of changes made to the default Remix/Express template:
 - [x] [Playwright](https://playwright.dev/)
 - [x] Browser env vars
 - [x] Toasts
+- [x] Error Boundary
 - [ ] API client
 - [ ] Sentry
-- [ ] Error Boundary
 - [ ] Deploy

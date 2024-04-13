@@ -33,7 +33,8 @@ export const createServerHttpClient = ({
     url: string;
   }
   async function doRequest({ body, method, url, options = {} }: DoRequestArgs) {
-    let request = {
+    let request: HttpRequest = {
+      method,
       ...options
     };
 
@@ -52,8 +53,7 @@ export const createServerHttpClient = ({
     timerId.unref();
 
     const res = await fetch(`${baseUrl}${url}`, {
-      method,
-      signal: controller.signal as AbortSignal,
+      signal: controller.signal,
       ...request
     });
 

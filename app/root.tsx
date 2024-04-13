@@ -10,6 +10,7 @@ import {
 import { useEffect } from 'react';
 import { toast as showToast } from 'sonner';
 
+import { GeneralErrorBoundary } from '~/components/error-boundary';
 import { Toaster } from '~/components/ui/sonner';
 import { getPublicEnv } from '~/lib/env.server';
 import { Toast, getToastFromRequest } from '~/lib/toast.server';
@@ -86,4 +87,8 @@ function useToast(toast?: Toast | null) {
       }, 0);
     }
   }, [toast]);
+}
+
+export function ErrorBoundary() {
+  return <GeneralErrorBoundary />;
 }
