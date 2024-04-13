@@ -5,7 +5,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData
+  useRouteLoaderData
 } from '@remix-run/react';
 import { useEffect } from 'react';
 import { toast as showToast } from 'sonner';
@@ -44,9 +44,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const data = useLoaderData<typeof loader>();
+  const data = useRouteLoaderData<typeof loader>('root');
 
-  useToast(data.toast);
+  useToast(data?.toast);
 
   return (
     <html lang="en" className="antialiased h-full">
@@ -60,7 +60,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.ENV = ${JSON.stringify(data.ENV)}`
+            __html: `window.ENV = ${JSON.stringify(data?.ENV)}`
           }}
         />
         <Toaster richColors expand />
