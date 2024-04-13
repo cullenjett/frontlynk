@@ -1,4 +1,4 @@
-import { LinksFunction, json } from '@remix-run/node';
+import { LinksFunction, LoaderFunctionArgs, json } from '@remix-run/node';
 import {
   Links,
   Meta,
@@ -7,8 +7,12 @@ import {
   ScrollRestoration,
   useLoaderData
 } from '@remix-run/react';
+import { useEffect } from 'react';
+import { toast as showToast } from 'sonner';
 
+import { Toaster } from '~/components/ui/sonner';
 import { getPublicEnv } from '~/lib/env.server';
+import { Toast, getToastFromRequest } from '~/lib/toast.server';
 
 import tailwind from './tailwind.css?url';
 
@@ -25,14 +29,24 @@ export const links: LinksFunction = () => {
   ];
 };
 
-export async function loader() {
-  return json({
-    ENV: getPublicEnv()
-  });
+export async function loader({ request }: LoaderFunctionArgs) {
+  const { toast, headers: toastHeaders } = await getToastFromRequest(request);
+
+  return json(
+    {
+      ENV: getPublicEnv(),
+      toast
+    },
+    {
+      headers: toastHeaders ?? undefined
+    }
+  );
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const data = useLoaderData<typeof loader>();
+
+  useToast(data.toast);
 
   return (
     <html lang="en" className="antialiased h-full">
@@ -49,6 +63,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             __html: `window.ENV = ${JSON.stringify(data.ENV)}`
           }}
         />
+        <Toaster richColors expand />
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -58,4 +73,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return <Outlet />;
+}
+
+function useToast(toast?: Toast | null) {
+  useEffect(() => {
+    if (toast) {
+      setTimeout(() => {
+        showToast[toast.type](toast.title, {
+          id: toast.id,
+          description: toast.description
+        });
+      }, 0);
+    }
+  }, [toast]);
 }

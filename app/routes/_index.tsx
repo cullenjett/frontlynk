@@ -8,6 +8,7 @@ import type {
 import {
   Form,
   Link,
+  json,
   redirect,
   useActionData,
   useNavigation
@@ -47,7 +48,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const submission = await parseWithZod(formData, { schema });
   if (submission.status !== 'success') {
-    return submission.reply();
+    return json(submission.reply());
   }
 
   // TODO: validate credentials

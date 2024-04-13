@@ -8,6 +8,7 @@ import { Form, useLoaderData } from '@remix-run/react';
 
 import { Button } from '~/components/ui/button';
 import { sessionStorage } from '~/lib/session.server';
+import { redirectWithToast } from '~/lib/toast.server';
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const session = await sessionStorage.getSession(
@@ -25,11 +26,18 @@ export async function action({ request }: ActionFunctionArgs) {
   const session = await sessionStorage.getSession(
     request.headers.get('Cookie')
   );
-  return redirect('/', {
-    headers: {
-      'Set-Cookie': await sessionStorage.destroySession(session)
+  return redirectWithToast(
+    '/',
+    {
+      type: 'message',
+      title: 'Thanks for stopping by'
+    },
+    {
+      headers: {
+        'Set-Cookie': await sessionStorage.destroySession(session)
+      }
     }
-  });
+  );
 }
 
 export default function Dashboard() {

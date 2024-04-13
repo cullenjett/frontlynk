@@ -44,6 +44,7 @@ COPY --from=production-deps /myapp/node_modules ./node_modules
 COPY --from=build /myapp/build ./build
 COPY --from=build /myapp/public ./public
 COPY --from=build /myapp/package.json ./package.json
+COPY --from=build /myapp/.env.example ./.env
 COPY --from=build /myapp/server.js ./server.js
 
 ENTRYPOINT [ "node", "server.js" ]

@@ -3,7 +3,8 @@ import { z } from 'zod';
 const schema = z.object({
   DEPLOY_ENV: z.enum(['local', 'develop', 'production'] as const),
   NODE_ENV: z.enum(['production', 'development', 'test'] as const),
-  PORT: z.string().optional()
+  PORT: z.string().optional(),
+  SESSION_SECRET: z.string()
 });
 
 declare global {
