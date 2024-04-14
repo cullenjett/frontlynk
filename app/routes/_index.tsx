@@ -18,7 +18,7 @@ import { z } from 'zod';
 import { Field } from '~/components/forms';
 import { Button } from '~/components/ui/button';
 import { Label } from '~/components/ui/label';
-import { sessionStorage } from '~/lib/session.server';
+import { login, sessionStorage } from '~/lib/session.server';
 
 export const meta: MetaFunction = () => {
   return [
@@ -51,20 +51,9 @@ export async function action({ request }: ActionFunctionArgs) {
     return json(submission.reply());
   }
 
-  // TODO: validate credentials
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  const session = await sessionStorage.getSession(
-    request.headers.get('Cookie')
-  );
-  session.set('user', {
-    email: submission.value.email
-  });
-
-  return redirect('/dashboard', {
-    headers: {
-      'Set-Cookie': await sessionStorage.commitSession(session)
-    }
+  return await login(request, {
+    email: submission.value.email,
+    password: submission.value.password
   });
 }
 

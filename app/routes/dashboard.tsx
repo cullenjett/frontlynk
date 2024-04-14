@@ -1,43 +1,22 @@
-import {
-  ActionFunctionArgs,
-  LoaderFunctionArgs,
-  json,
-  redirect
-} from '@remix-run/node';
+import { ActionFunctionArgs, LoaderFunctionArgs, json } from '@remix-run/node';
 import { Form, useLoaderData } from '@remix-run/react';
 
 import { Button } from '~/components/ui/button';
-import { sessionStorage } from '~/lib/session.server';
-import { redirectWithToast } from '~/lib/toast.server';
+import { logout, requireAuth } from '~/lib/session.server';
+import { createToastHeaders } from '~/lib/toast.server';
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const session = await sessionStorage.getSession(
-    request.headers.get('Cookie')
-  );
-  const user = session.get('user');
-  if (!user) {
-    throw redirect('/');
-  }
-
+  const { user } = await requireAuth(request);
   return json({ user });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
-  const session = await sessionStorage.getSession(
-    request.headers.get('Cookie')
-  );
-  return redirectWithToast(
-    '/',
-    {
+  await logout(request, {
+    headers: await createToastHeaders({
       type: 'message',
       title: 'Thanks for stopping by'
-    },
-    {
-      headers: {
-        'Set-Cookie': await sessionStorage.destroySession(session)
-      }
-    }
-  );
+    })
+  });
 }
 
 export default function Dashboard() {
