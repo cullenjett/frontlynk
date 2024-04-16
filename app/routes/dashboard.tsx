@@ -116,7 +116,7 @@ function Sidebar() {
       <nav className="flex flex-col items-center gap-2 px-2 py-4">
         <Link
           to="/dashboard"
-          className="mb-[4.375rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="mb-16 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
           <img
             className="rounded-full"

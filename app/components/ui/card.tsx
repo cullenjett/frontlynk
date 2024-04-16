@@ -1,8 +1,51 @@
+import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
 import { cn } from '~/lib/styles';
 
-const Card = React.forwardRef<
+const cardVariants = cva(null, {
+  variants: {
+    decoration: {
+      blue: 'border-t-4 border-t-jordy-blue',
+      orange: 'border-t-4 border-t-burnt-sienna',
+      dark: 'border-t-4 border-t-mirage',
+      green: 'border-t-4 border-t-blue-chill'
+    }
+  }
+});
+
+/**
+ * A custom convenience wrapper around the different Card components
+ */
+export const Card = ({
+  className,
+  decoration,
+  header,
+  title,
+  children,
+  footer
+}: {
+  className?: string;
+  header?: React.ReactNode;
+  title?: React.ReactNode;
+  children?: React.ReactNode;
+  footer?: React.ReactNode;
+} & VariantProps<typeof cardVariants>) => {
+  return (
+    <CardOuter className={cn(cardVariants({ decoration, className }))}>
+      {(header || title) && (
+        <CardHeader>
+          {title && <CardTitle>{title}</CardTitle>}
+          {header}
+        </CardHeader>
+      )}
+      {children && <CardContent>{children}</CardContent>}
+      {footer && <CardFooter>{footer}</CardFooter>}
+    </CardOuter>
+  );
+};
+
+const CardOuter = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
@@ -15,7 +58,7 @@ const Card = React.forwardRef<
     {...props}
   />
 ));
-Card.displayName = 'Card';
+CardOuter.displayName = 'CardOuter';
 
 const CardHeader = React.forwardRef<
   HTMLDivElement,
@@ -76,7 +119,7 @@ const CardFooter = React.forwardRef<
 CardFooter.displayName = 'CardFooter';
 
 export {
-  Card,
+  CardOuter,
   CardHeader,
   CardFooter,
   CardTitle,
