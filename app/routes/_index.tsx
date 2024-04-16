@@ -1,5 +1,5 @@
 import { useForm, getInputProps, getFormProps } from '@conform-to/react';
-import { getZodConstraint, parseWithZod } from '@conform-to/zod';
+import { parseWithZod } from '@conform-to/zod';
 import type {
   ActionFunctionArgs,
   LoaderFunctionArgs,
@@ -59,13 +59,13 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function Index() {
   return (
-    <div className="w-full h-full lg:grid lg:grid-cols-2">
-      <div className="flex items-center justify-center py-12 px-5 h-full">
-        <div className="mx-auto w-[350px] grid gap-8">
+    <div className="h-full w-full lg:grid lg:grid-cols-2">
+      <div className="flex h-full items-center justify-center px-5 py-12">
+        <div className="mx-auto grid w-[350px] gap-8">
           <div className="grid gap-2 text-center">
             <h1 className="text-3xl font-bold">Login</h1>
             <p className="text-muted-foreground">
-              Enter your email and password
+              Any email and password will do
             </p>
           </div>
 
@@ -73,7 +73,15 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="hidden bg-burnt-sienna-400 lg:block"></div>
+      <div className="hidden items-center justify-center bg-burnt-sienna-400 lg:flex">
+        <img
+          className="rounded opacity-30"
+          src="https://placehold.co/180x40"
+          alt="Logo"
+          width="180"
+          height="40"
+        />
+      </div>
     </div>
   );
 }
@@ -81,12 +89,13 @@ export default function Index() {
 function LoginForm() {
   const navigation = useNavigation();
   const lastResult = useActionData<typeof action>();
-  const [form, fields] = useForm({
-    lastResult,
-    constraint: getZodConstraint(schema),
-    onValidate({ formData }) {
-      return parseWithZod(formData, { schema });
-    }
+  const [form, fields] = useForm<z.input<typeof schema>>({
+    lastResult
+    // Adding client-side validation costs ~15kb...
+    // constraint: getZodConstraint(schema),
+    // onValidate({ formData }) {
+    //   return parseWithZod(formData, { schema });
+    // }
   });
 
   return (
@@ -103,7 +112,7 @@ function LoginForm() {
 
       <Field
         renderLabel={(labelProps) => (
-          <div className="flex items-center relative">
+          <div className="relative flex items-center">
             <Label {...labelProps}>Password</Label>
             <Link to="/forgot-password" className="link ml-auto text-xs">
               Forgot your password?

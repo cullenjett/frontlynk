@@ -46,8 +46,8 @@ export function GeneralErrorBoundary({
   }
 
   return (
-    <div className="h-full flex items-center justify-center px-5 bg-red-100 rounded">
-      <div className="grid gap-4 max-w-[420px] text-lg text-center text-pretty">
+    <div className="flex h-full items-center justify-center rounded bg-red-100 px-5">
+      <div className="grid max-w-[420px] gap-4 text-pretty text-center text-lg">
         <ServerCrash className="m-auto size-8 text-destructive" />
 
         {isRouteErrorResponse(error)

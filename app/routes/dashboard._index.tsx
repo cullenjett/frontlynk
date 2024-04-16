@@ -11,13 +11,13 @@ export default function Dashboard() {
   return (
     <>
       <div className="grid grid-cols-4 gap-4">
-        <div className="border p-4 rounded-lg shadow-sm min-h-24 bg-card border-t-4 border-t-jordy-blue"></div>
-        <div className="border p-4 rounded-lg shadow-sm min-h-24 bg-card border-t-4 border-t-burnt-sienna"></div>
-        <div className="border p-4 rounded-lg shadow-sm min-h-24 bg-card border-t-4 border-t-mirage"></div>
-        <div className="border p-4 rounded-lg shadow-sm min-h-24 bg-card border-t-4 border-t-blue-chill"></div>
+        <div className="min-h-24 rounded-lg border border-t-4 border-t-jordy-blue bg-card p-4 shadow-sm"></div>
+        <div className="min-h-24 rounded-lg border border-t-4 border-t-burnt-sienna bg-card p-4 shadow-sm"></div>
+        <div className="min-h-24 rounded-lg border border-t-4 border-t-mirage bg-card p-4 shadow-sm"></div>
+        <div className="min-h-24 rounded-lg border border-t-4 border-t-blue-chill bg-card p-4 shadow-sm"></div>
       </div>
 
-      <div className="grid gap-4 grid-cols-[2fr_1fr] h-full">
+      <div className="grid h-full grid-cols-[2fr_1fr] gap-4">
         <Card>
           <CardHeader>
             <CardTitle>Onboarding</CardTitle>

@@ -50,14 +50,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
   useToast(data?.toast);
 
   return (
-    <html lang="en" className="antialiased h-full">
+    <html lang="en" className="h-full antialiased">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
-      <body className="min-h-full h-full">
+      <body className="h-full min-h-full">
         {children}
         <script
           dangerouslySetInnerHTML={{

@@ -25,30 +25,38 @@ export async function action({ request }: ActionFunctionArgs) {
   await logout(request, {
     headers: await createToastHeaders({
       type: 'message',
-      title: 'Thanks for stopping by'
+      title: 'You are now signed out'
     })
   });
 }
 
 export default function DashboardLayout() {
   return (
-    <div className="flex overflow-auto h-screen w-full flex-col bg-muted">
+    <div className="flex h-screen w-full flex-col overflow-auto bg-muted">
       <Sidebar />
 
-      <div className="flex flex-col h-full sm:pl-56 relative">
-        <header className="fixed top-0 left-56 right-0 flex items-center px-6 py-4 bg-background">
-          <h1 className="text-xl font-bold tracking-tight">Dashboard</h1>
+      <div className="relative flex h-full flex-col sm:pl-56">
+        <Header />
 
-          <div className="ml-auto">
-            <AccountDropdown />
-          </div>
-        </header>
-
-        <main className="container flex flex-col gap-4 flex-1 px-4 py-6 pt-24">
+        <main className="container flex flex-1 flex-col gap-4 px-4 py-6 pt-24">
           <Outlet />
         </main>
       </div>
     </div>
+  );
+}
+
+function Header() {
+  return (
+    <header className="fixed left-56 right-0 top-0 bg-background">
+      <div className="container flex items-center px-6 py-4">
+        <h1 className="text-xl font-bold tracking-tight">Dashboard</h1>
+
+        <div className="ml-auto">
+          <AccountDropdown />
+        </div>
+      </div>
+    </header>
   );
 }
 
@@ -91,7 +99,7 @@ function AccountDropdown() {
           <DropdownMenuItem asChild>
             <button
               type="submit"
-              className="w-full text-destructive focus:text-destructive focus:bg-destructive/10"
+              className="w-full text-destructive focus:bg-destructive/10 focus:text-destructive"
             >
               Logout
             </button>
@@ -104,8 +112,8 @@ function AccountDropdown() {
 
 function Sidebar() {
   return (
-    <aside className="w-56 fixed inset-y-0 left-0 z-10 hidden sm:flex flex-col bg-background">
-      <nav className="flex flex-col gap-2 items-center px-2 py-4">
+    <aside className="fixed inset-y-0 left-0 z-10 hidden w-56 flex-col bg-background sm:flex">
+      <nav className="flex flex-col items-center gap-2 px-2 py-4">
         <Link
           to="/dashboard"
           className="mb-[4.375rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
@@ -149,7 +157,7 @@ function NavItem({
       end
       className={({ isActive }) =>
         cn(
-          'flex gap-5 items-center no-underline w-full p-3 pl-8 hover:bg-muted transition-colors rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+          'flex w-full items-center gap-5 rounded-lg p-3 pl-8 no-underline transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
           {
             'bg-primary text-primary-foreground hover:bg-primary/90': isActive
           }

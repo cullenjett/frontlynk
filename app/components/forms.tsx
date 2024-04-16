@@ -49,7 +49,7 @@ export function Field({
       {helpTextId && (
         <p
           id={helpTextId}
-          className="text-xs text-muted-foreground font-medium"
+          className="text-xs font-medium text-muted-foreground"
         >
           {helpText}
         </p>

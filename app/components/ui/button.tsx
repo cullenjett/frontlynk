@@ -67,8 +67,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {isLoading ? (
           <>
-            <Circle className="animate-spin w-[1.25em] h-[1.25em] opacity-15" />
-            <LoaderCircle className="absolute animate-spin w-[1.25em] h-[1.25em]" />
+            <Circle className="h-[1.25em] w-[1.25em] animate-spin opacity-15" />
+            <LoaderCircle className="absolute h-[1.25em] w-[1.25em] animate-spin" />
           </>
         ) : (
           children
