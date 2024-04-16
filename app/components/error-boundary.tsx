@@ -46,7 +46,7 @@ export function GeneralErrorBoundary({
   }
 
   return (
-    <div className="h-full flex items-center justify-center px-5 bg-red-100">
+    <div className="h-full flex items-center justify-center px-5 bg-red-100 rounded">
       <div className="grid gap-4 max-w-[420px] text-lg text-center text-pretty">
         <ServerCrash className="m-auto size-8 text-destructive" />
 

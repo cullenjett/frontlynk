@@ -1,6 +1,6 @@
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { LoaderCircle } from 'lucide-react';
+import { Circle, LoaderCircle } from 'lucide-react';
 import * as React from 'react';
 
 import { cn } from '~/lib/styles';
@@ -22,7 +22,7 @@ const buttonVariants = cva(
       },
       size: {
         default: 'h-11 px-4 py-2',
-        sm: 'h-9 rounded-md px-3',
+        sm: 'h-9 rounded-md px-3 text-xs',
         lg: 'h-12 rounded-md px-8',
         icon: 'h-11 w-11'
       }
@@ -66,7 +66,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {isLoading ? (
-          <LoaderCircle className="animate-spin w-[1.25em] h-[1.25em]" />
+          <>
+            <Circle className="animate-spin w-[1.25em] h-[1.25em] opacity-15" />
+            <LoaderCircle className="absolute animate-spin w-[1.25em] h-[1.25em]" />
+          </>
         ) : (
           children
         )}

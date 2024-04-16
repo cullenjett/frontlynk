@@ -21,6 +21,10 @@ export async function requireAuth(request: Request) {
   if (!user) {
     throw redirect('/');
   }
+
+  // TODO: validate token
+  await new Promise((resolve) => setTimeout(resolve, 100));
+
   return { user };
 }
 

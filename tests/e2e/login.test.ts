@@ -13,9 +13,10 @@ test('Login happy path', async ({ page }) => {
 
   await page.getByRole('button', { name: /Login/i }).click();
 
-  await expect(page.getByText('test@example.com')).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Dashboard/i })).toBeVisible();
 
-  await page.getByRole('button', { name: /Sign out/i }).click();
+  await page.getByRole('button', { name: /My account menu/i }).click();
+  await page.getByRole('menuitem', { name: /Logout/i }).click();
 
   await expect(page.getByRole('heading', { name: /Login/ })).toBeVisible();
 });

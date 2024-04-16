@@ -105,7 +105,7 @@ function LoginForm() {
         renderLabel={(labelProps) => (
           <div className="flex items-center relative">
             <Label {...labelProps}>Password</Label>
-            <Link to="/forgot-password" className="ml-auto text-xs">
+            <Link to="/forgot-password" className="link ml-auto text-xs">
               Forgot your password?
             </Link>
           </div>
@@ -126,7 +126,10 @@ function LoginForm() {
       </Button>
 
       <p className="mt-4 text-center text-sm">
-        Don't have an account? <Link to="/register">Sign up</Link>
+        Don't have an account?{' '}
+        <Link to="/register" className="link">
+          Sign up
+        </Link>
       </p>
     </Form>
   );

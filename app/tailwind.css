@@ -14,7 +14,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 20 14.3% 4.1%;
 
-    --primary: 24 9.8% 10%;
+    /* --primary: 24 9.8% 10%; */
+    --primary: 225 53% 11%;
     --primary-foreground: 60 9.1% 97.8%;
 
     --secondary: 60 4.8% 95.9%;
@@ -32,6 +33,7 @@
     --border: 20 5.9% 90%;
     --input: 20 5.9% 90%;
     --ring: 20 14.3% 4.1%;
+    --ring: 225 53% 11%;
 
     --radius: 0.5rem;
   }
@@ -87,6 +89,10 @@
   }
 
   a {
-    @apply text-primary focus-visible:ring-ring -my-1 inline-block rounded py-1 underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2;
+    @apply inline-block rounded text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring;
+
+    &.link {
+      @apply -my-1 py-1 underline underline-offset-2;
+    }
   }
 }
