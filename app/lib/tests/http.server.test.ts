@@ -21,7 +21,7 @@ const createFetchMock = (
 const setup = (options: any = {}) => {
   const fetch = options.fetch || createFetchMock();
   const http = createServerHttpClient({
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'http://localhost:5173',
     requestTransformers: [],
     ...options,
     fetch
@@ -40,7 +40,7 @@ describe('createServerHttpClient', () => {
     await http.get('/api');
 
     expect(fetch).toHaveBeenCalledWith(
-      'http://localhost:3000/api',
+      'http://localhost:5173/api',
       expect.any(Object)
     );
   });
@@ -68,7 +68,7 @@ describe('createServerHttpClient', () => {
     expect(getToken).toHaveBeenCalled();
 
     expect(fetch).toHaveBeenCalledWith(
-      'http://localhost:3000/api',
+      'http://localhost:5173/api',
       expect.objectContaining({
         headers: {
           authorization: 'bearer abc',
@@ -129,7 +129,7 @@ describe('createServerHttpClient', () => {
     await http.post('/api', payload);
 
     expect(fetch).toHaveBeenCalledWith(
-      'http://localhost:3000/api',
+      'http://localhost:5173/api',
       expect.objectContaining({
         method: 'POST',
         body: JSON.stringify(payload),
@@ -153,7 +153,7 @@ describe('createServerHttpClient', () => {
     });
 
     expect(fetch).toHaveBeenCalledWith(
-      'http://localhost:3000/api',
+      'http://localhost:5173/api',
       expect.objectContaining({
         method: 'POST',
         body: payload,

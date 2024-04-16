@@ -8,7 +8,7 @@ describe('Dashboard', () => {
     const session = await sessionStorage.getSession();
     const fakeUser = { email: 'test@example.com' };
     session.set('user', fakeUser);
-    const request = new Request('http://localhost:3000/dashboard', {
+    const request = new Request('http://localhost:5173/dashboard', {
       headers: { Cookie: await sessionStorage.commitSession(session) }
     });
     const response = await loader({ request, context: {}, params: {} });
@@ -16,7 +16,7 @@ describe('Dashboard', () => {
   });
 
   test('Loader - is not signed in', async () => {
-    const request = new Request('http://localhost:3000/dashboard', {
+    const request = new Request('http://localhost:5173/dashboard', {
       headers: { Cookie: '' }
     });
 

@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      dockerfile: Dockerfile.dev
+    env_file:
+      - .env
+    ports:
+      - '${PORT}:${PORT}'
+      - '24678:24678' # Vite websocket port for hot reloads
+    volumes:
+      - ./app/:/myapp/app/
+      - /node_modules

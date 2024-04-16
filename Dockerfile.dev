@@ -1,0 +1,11 @@
+FROM node:20-bookworm-slim as base
+ENV NODE_ENV development
+WORKDIR /myapp
+ADD package.json package-lock.json ./
+RUN npm install --include=dev
+
+FROM base
+WORKDIR /myapp
+COPY --from=base /myapp/node_modules ./node_modules
+COPY . .
+ENTRYPOINT [ "node", "server.js" ]

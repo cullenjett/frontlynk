@@ -8,7 +8,7 @@
     "dev": "node ./server.js",
     "docker": "npm run docker:build && npm run docker:start",
     "docker:build": "docker build --rm -t cullenjett/frontlynk .",
-    "docker:start": "docker run --rm -it -p 3000:3000 cullenjett/frontlynk",
+    "docker:start": "docker run --rm -it -p 5173:5173 cullenjett/frontlynk",
     "format": "prettier --write .",
     "test": "vitest",
     "test:e2e": "playwright test",
