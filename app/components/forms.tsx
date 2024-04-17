@@ -4,6 +4,13 @@ import { useId } from 'react';
 import { Checkbox } from '~/components/ui/checkbox';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '~/components/ui/select';
 import { cn } from '~/lib/styles';
 
 interface FieldProps {
@@ -121,6 +128,77 @@ export function CheckboxField({
           {label}
         </Label>
       </div>
+
+      {helpTextId && (
+        <p
+          id={helpTextId}
+          className="text-xs font-medium text-muted-foreground"
+        >
+          {helpText}
+        </p>
+      )}
+
+      {errorId && <FieldErrors id={errorId} errors={errors} />}
+    </div>
+  );
+}
+
+interface SelectFieldProps {
+  className?: string;
+  errors?: string[];
+  helpText?: React.ReactNode;
+  label?: React.ReactNode;
+  options?: Array<{ label: React.ReactNode; value: string }>;
+  selectProps: {
+    key?: string;
+    id?: string;
+    name: string;
+    form: string;
+    value?: string;
+    defaultValue?: string | number | readonly string[] | undefined;
+  };
+}
+
+export function SelectField({
+  label,
+  options,
+  errors,
+  helpText,
+  selectProps
+}: SelectFieldProps) {
+  const fallbackId = useId();
+  const id = selectProps.id ?? fallbackId;
+  const errorId = errors?.length ? `${id}-error` : undefined;
+  const helpTextId = helpText ? `${id}-help-text` : undefined;
+
+  const select = useInputControl({
+    key: selectProps.key,
+    name: selectProps.name,
+    formId: selectProps.form,
+    initialValue: String(selectProps.defaultValue)
+  });
+
+  return (
+    <div className="grid gap-2">
+      <Label htmlFor={id} variant={errorId ? 'destructive' : 'default'}>
+        {label}
+      </Label>
+      <Select
+        {...selectProps}
+        onValueChange={select.change}
+        defaultValue={String(selectProps.defaultValue)}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder=" " />
+        </SelectTrigger>
+        <SelectContent>
+          {options?.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
 
       {helpTextId && (
         <p
