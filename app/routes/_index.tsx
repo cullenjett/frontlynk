@@ -1,9 +1,4 @@
-import {
-  useForm,
-  getInputProps,
-  getFormProps,
-  getSelectProps
-} from '@conform-to/react';
+import { useForm, getInputProps, getFormProps } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
 import type {
   ActionFunctionArgs,
@@ -20,7 +15,7 @@ import {
 } from '@remix-run/react';
 import { z } from 'zod';
 
-import { Field, SelectField } from '~/components/forms';
+import { Field } from '~/components/forms';
 import { Button } from '~/components/ui/button';
 import { Label } from '~/components/ui/label';
 import { login, sessionStorage } from '~/lib/session.server';
@@ -46,10 +41,7 @@ const schema = z.object({
   email: z.string({ required_error: 'Email is required' }).email(),
   password: z
     .string({ required_error: 'Password is required' })
-    .min(4, 'Password must be at least 4 characters'),
-  favoriteNumber: z.enum(['one', 'two', 'three'] as const, {
-    errorMap: () => ({ message: 'Required' })
-  })
+    .min(4, 'Password must be at least 4 characters')
 });
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -99,9 +91,6 @@ function LoginForm() {
   const lastResult = useActionData<typeof action>();
   const [form, fields] = useForm<z.input<typeof schema>>({
     lastResult
-    // defaultValue: {
-    //   favoriteNumber: 'two'
-    // }
     // Adding client-side validation costs ~15kb...
     // constraint: getZodConstraint(schema),
     // onValidate({ formData }) {
@@ -135,19 +124,6 @@ function LoginForm() {
           autoComplete: 'current-password'
         }}
         errors={fields.password.errors}
-      />
-
-      <SelectField
-        label="Favorite number"
-        options={[
-          { label: 'One', value: 'one' },
-          { label: 'Two', value: 'two' },
-          { label: 'Three', value: 'three' }
-        ]}
-        selectProps={{
-          ...getSelectProps(fields.favoriteNumber)
-        }}
-        errors={fields.favoriteNumber.errors}
       />
 
       <Button

@@ -4,13 +4,6 @@ import { useId } from 'react';
 import { Checkbox } from '~/components/ui/checkbox';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '~/components/ui/select';
 import { cn } from '~/lib/styles';
 
 interface FieldProps {
@@ -149,17 +142,11 @@ interface SelectFieldProps {
   helpText?: React.ReactNode;
   label?: React.ReactNode;
   options?: Array<{ label: React.ReactNode; value: string }>;
-  selectProps: {
-    key?: string;
-    id?: string;
-    name: string;
-    form: string;
-    value?: string;
-    defaultValue?: string | number | readonly string[] | undefined;
-  };
+  selectProps: React.ComponentProps<'select'>;
 }
 
 export function SelectField({
+  className,
   label,
   options,
   errors,
@@ -171,34 +158,24 @@ export function SelectField({
   const errorId = errors?.length ? `${id}-error` : undefined;
   const helpTextId = helpText ? `${id}-help-text` : undefined;
 
-  const select = useInputControl({
-    key: selectProps.key,
-    name: selectProps.name,
-    formId: selectProps.form,
-    initialValue: String(selectProps.defaultValue)
-  });
-
   return (
     <div className="grid gap-2">
       <Label htmlFor={id} variant={errorId ? 'destructive' : 'default'}>
         {label}
       </Label>
-      <Select
+      <select
         {...selectProps}
-        onValueChange={select.change}
-        defaultValue={String(selectProps.defaultValue)}
+        className={cn(
+          'flex h-11 w-full rounded-md border border-input bg-background px-3 py-2 pr-9 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+          className
+        )}
       >
-        <SelectTrigger>
-          <SelectValue placeholder=" " />
-        </SelectTrigger>
-        <SelectContent>
-          {options?.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+        {options?.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
 
       {helpTextId && (
         <p
