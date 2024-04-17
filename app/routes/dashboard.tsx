@@ -32,13 +32,13 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function DashboardLayout() {
   return (
-    <div className="flex h-screen w-full flex-col overflow-auto bg-muted">
+    <div className="h-screen bg-muted">
       <Sidebar />
 
       <div className="relative flex h-full flex-col sm:pl-56">
         <Header />
 
-        <main className="container flex flex-1 flex-col gap-4 px-4 py-6 pt-24">
+        <main className="container grid max-h-full flex-1 overflow-y-auto px-4 py-6">
           <Outlet />
         </main>
       </div>
@@ -48,8 +48,8 @@ export default function DashboardLayout() {
 
 function Header() {
   return (
-    <header className="fixed left-56 right-0 top-0 bg-background">
-      <div className="container flex items-center px-6 py-4">
+    <header className="sticky left-56 right-0 top-0 bg-background">
+      <div className="container flex items-center gap-6 px-6 py-4">
         <h1 className="text-xl font-bold tracking-tight">Dashboard</h1>
 
         <div className="ml-auto">

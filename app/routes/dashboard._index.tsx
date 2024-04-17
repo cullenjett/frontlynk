@@ -3,7 +3,7 @@ import { Card } from '~/components/ui/card';
 
 export default function Dashboard() {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <div className="grid grid-cols-4 gap-4">
         <Card className="min-h-24" decoration="blue"></Card>
         <Card className="min-h-24" decoration="orange"></Card>
@@ -11,11 +11,11 @@ export default function Dashboard() {
         <Card className="min-h-24" decoration="green"></Card>
       </div>
 
-      <div className="grid h-full grid-cols-[2fr_1fr] gap-4">
+      <div className="grid flex-1 grid-cols-[2fr_1fr] gap-4">
         <Card title="Onboarding"></Card>
         <Card title="Recent Activity"></Card>
       </div>
-    </>
+    </div>
   );
 }
 
