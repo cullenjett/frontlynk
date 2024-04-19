@@ -1,4 +1,9 @@
-import { ActionFunctionArgs, LoaderFunctionArgs, json } from '@remix-run/node';
+import {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+  MetaFunction,
+  json
+} from '@remix-run/node';
 import { Form, Link, NavLink, Outlet, useLoaderData } from '@remix-run/react';
 import { FileBadge, LayoutGrid, User } from 'lucide-react';
 
@@ -15,6 +20,10 @@ import {
 import { logout, requireAuth } from '~/lib/session.server';
 import { cn } from '~/lib/styles';
 import { createToastHeaders } from '~/lib/toast.server';
+
+export const meta: MetaFunction = () => {
+  return [{ title: 'Dashboard' }];
+};
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { user } = await requireAuth(request);

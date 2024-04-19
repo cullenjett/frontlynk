@@ -21,10 +21,7 @@ import { Label } from '~/components/ui/label';
 import { login, sessionStorage } from '~/lib/session.server';
 
 export const meta: MetaFunction = () => {
-  return [
-    { title: 'New Remix App' },
-    { name: 'description', content: 'Welcome to Remix!' }
-  ];
+  return [{ title: 'Frontlynk' }];
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {

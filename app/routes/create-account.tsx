@@ -1,13 +1,23 @@
 import { useForm, getInputProps, getFormProps } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
 import { ActionFunctionArgs, json } from '@remix-run/node';
-import { Form, Link, useActionData, useNavigation } from '@remix-run/react';
+import {
+  Form,
+  Link,
+  MetaFunction,
+  useActionData,
+  useNavigation
+} from '@remix-run/react';
 import { ArrowRight } from 'lucide-react';
 import { z } from 'zod';
 
 import { Field } from '~/components/forms';
 import { Button } from '~/components/ui/button';
 import { createAccount } from '~/lib/session.server';
+
+export const meta: MetaFunction = () => {
+  return [{ title: 'Create Account' }];
+};
 
 const schema = z
   .object({
