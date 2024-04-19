@@ -38,7 +38,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 const schema = z.object({
-  email: z.string({ required_error: 'Email is required' }).email(),
+  email: z
+    .string({ required_error: 'Email is required' })
+    .email()
+    .transform((value) => value.toLowerCase().trim()),
   password: z
     .string({ required_error: 'Password is required' })
     .min(4, 'Password must be at least 4 characters')
@@ -59,9 +62,9 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function Index() {
   return (
-    <div className="h-full w-full lg:grid lg:grid-cols-2">
+    <div className="h-full w-full lg:grid lg:grid-cols-[3fr_2fr]">
       <div className="flex h-full items-center justify-center px-5 py-12">
-        <div className="mx-auto grid w-[350px] gap-8">
+        <div className="mx-auto grid w-full max-w-[350px] gap-8">
           <div className="grid gap-2 text-center">
             <h1 className="text-3xl font-bold">Login</h1>
             <p className="text-muted-foreground">
@@ -73,15 +76,7 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="hidden items-center justify-center bg-burnt-sienna-400 lg:flex">
-        <img
-          className="rounded opacity-30"
-          src="https://placehold.co/180x40"
-          alt="Logo"
-          width="180"
-          height="40"
-        />
-      </div>
+      <div className="hidden bg-burnt-sienna-400 lg:block"></div>
     </div>
   );
 }
@@ -136,7 +131,7 @@ function LoginForm() {
 
       <p className="mt-4 text-center text-sm">
         Don't have an account?{' '}
-        <Link to="/register" className="link">
+        <Link to="/create-account" className="link">
           Sign up
         </Link>
       </p>

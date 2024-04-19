@@ -28,6 +28,32 @@ export async function requireAuth(request: Request) {
   return { user };
 }
 
+export async function createAccount(
+  request: Request,
+  newAccount: {
+    firstName: string;
+    lastName?: string;
+    email: string;
+    password: string;
+  }
+) {
+  // TODO: create a real account
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  const session = await sessionStorage.getSession(
+    request.headers.get('Cookie')
+  );
+  session.set('user', {
+    email: newAccount.email
+  });
+
+  throw redirect('/dashboard', {
+    headers: {
+      'Set-Cookie': await sessionStorage.commitSession(session)
+    }
+  });
+}
+
 export async function login(
   request: Request,
   credentials: { email: string; password: string }

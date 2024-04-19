@@ -29,7 +29,7 @@ export function Field({
   const helpTextId = helpText ? `${id}-help-text` : undefined;
 
   return (
-    <div className={cn('grid gap-2', className)}>
+    <div className={cn('flex flex-col gap-2', className)}>
       {label ? (
         <Label htmlFor={id} variant={errorId ? 'destructive' : 'default'}>
           {label}
@@ -95,7 +95,7 @@ export function CheckboxField({
   const helpTextId = helpText ? `${id}-help-text` : undefined;
 
   return (
-    <div className={cn('grid gap-2', className)}>
+    <div className={cn('flex flex-col gap-2', className)}>
       <div className="flex items-center gap-2">
         <Checkbox
           {...rest}
@@ -141,7 +141,11 @@ interface SelectFieldProps {
   errors?: string[];
   helpText?: React.ReactNode;
   label?: React.ReactNode;
-  options?: Array<{ label: React.ReactNode; value: string }>;
+  options?: Array<{
+    label: React.ReactNode;
+    value: string;
+    disabled?: boolean;
+  }>;
   selectProps: React.ComponentProps<'select'>;
 }
 
@@ -159,7 +163,7 @@ export function SelectField({
   const helpTextId = helpText ? `${id}-help-text` : undefined;
 
   return (
-    <div className="grid gap-2">
+    <div className={cn('flex flex-col gap-2', className)}>
       <Label htmlFor={id} variant={errorId ? 'destructive' : 'default'}>
         {label}
       </Label>
@@ -167,11 +171,15 @@ export function SelectField({
         {...selectProps}
         className={cn(
           'flex h-11 w-full rounded-md border border-input bg-background px-3 py-2 pr-9 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
-          className
+          selectProps.className
         )}
       >
         {options?.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option
+            key={option.value}
+            value={option.value}
+            disabled={option.disabled}
+          >
             {option.label}
           </option>
         ))}
@@ -189,6 +197,67 @@ export function SelectField({
       {errorId && <FieldErrors id={errorId} errors={errors} />}
     </div>
   );
+}
+
+const STATES = [
+  { value: '', label: '', disabled: true },
+  { value: 'AL', label: 'Alabama' },
+  { value: 'AK', label: 'Alaska' },
+  { value: 'AZ', label: 'Arizona' },
+  { value: 'AR', label: 'Arkansas' },
+  { value: 'CA', label: 'California' },
+  { value: 'CO', label: 'Colorado' },
+  { value: 'CT', label: 'Connecticut' },
+  { value: 'DE', label: 'Delaware' },
+  { value: 'DC', label: 'District of Columbia' },
+  { value: 'FL', label: 'Florida' },
+  { value: 'GA', label: 'Georgia' },
+  { value: 'HI', label: 'Hawaii' },
+  { value: 'ID', label: 'Idaho' },
+  { value: 'IL', label: 'Illinois' },
+  { value: 'IN', label: 'Indiana' },
+  { value: 'IA', label: 'Iowa' },
+  { value: 'KS', label: 'Kansas' },
+  { value: 'KY', label: 'Kentucky' },
+  { value: 'LA', label: 'Louisiana' },
+  { value: 'ME', label: 'Maine' },
+  { value: 'MD', label: 'Maryland' },
+  { value: 'MA', label: 'Massachusetts' },
+  { value: 'MI', label: 'Michigan' },
+  { value: 'MN', label: 'Minnesota' },
+  { value: 'MS', label: 'Mississippi' },
+  { value: 'MO', label: 'Missouri' },
+  { value: 'MT', label: 'Montana' },
+  { value: 'NE', label: 'Nebraska' },
+  { value: 'NV', label: 'Nevada' },
+  { value: 'NH', label: 'New Hampshire' },
+  { value: 'NJ', label: 'New Jersey' },
+  { value: 'NM', label: 'New Mexico' },
+  { value: 'NY', label: 'New York' },
+  { value: 'NC', label: 'North Carolina' },
+  { value: 'ND', label: 'North Dakota' },
+  { value: 'OH', label: 'Ohio' },
+  { value: 'OK', label: 'Oklahoma' },
+  { value: 'OR', label: 'Oregon' },
+  { value: 'PA', label: 'Pennsylvania' },
+  { value: 'RI', label: 'Rhode Island' },
+  { value: 'SC', label: 'South Carolina' },
+  { value: 'SD', label: 'South Dakota' },
+  { value: 'TN', label: 'Tennessee' },
+  { value: 'TX', label: 'Texas' },
+  { value: 'UT', label: 'Utah' },
+  { value: 'VT', label: 'Vermont' },
+  { value: 'VA', label: 'Virginia' },
+  { value: 'WA', label: 'Washington' },
+  { value: 'WV', label: 'West Virginia' },
+  { value: 'WI', label: 'Wisconsin' },
+  { value: 'WY', label: 'Wyoming' }
+];
+
+export function StateSelectField(
+  props: React.ComponentProps<typeof SelectField>
+) {
+  return <SelectField {...props} options={STATES} />;
 }
 
 interface FieldErrorsProps {

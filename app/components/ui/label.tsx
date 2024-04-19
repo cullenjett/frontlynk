@@ -10,7 +10,7 @@ const labelVariants = cva(
     variants: {
       variant: {
         default: 'text-foreground',
-        destructive: 'text-destructive'
+        destructive: 'text-destructive font-semibold'
       }
     },
     defaultVariants: {

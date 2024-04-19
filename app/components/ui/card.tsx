@@ -39,7 +39,15 @@ export const Card = ({
           {header}
         </CardHeader>
       )}
-      {children && <CardContent>{children}</CardContent>}
+      {children && (
+        <CardContent
+          className={cn({
+            'pt-6': !header && !title
+          })}
+        >
+          {children}
+        </CardContent>
+      )}
       {footer && <CardFooter>{footer}</CardFooter>}
     </CardOuter>
   );
