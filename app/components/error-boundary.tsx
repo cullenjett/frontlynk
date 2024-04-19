@@ -41,7 +41,7 @@ export function GeneralErrorBoundary({
   const error = useRouteError();
   const params = useParams();
 
-  if (typeof document !== 'undefined') {
+  if (typeof document !== 'undefined' && error) {
     console.error(error);
   }
 

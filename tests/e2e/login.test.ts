@@ -15,7 +15,7 @@ test('Login happy path', async ({ page }) => {
 
   await expect(page.getByRole('heading', { name: /Dashboard/i })).toBeVisible();
 
-  await page.getByRole('button', { name: /My account menu/i }).click();
+  await page.getByRole('button', { name: /Account menu/i }).click();
   await page.getByRole('menuitem', { name: /Logout/i }).click();
 
   await expect(page.getByRole('heading', { name: /Login/ })).toBeVisible();
