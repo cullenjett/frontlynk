@@ -73,7 +73,7 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="hidden bg-burnt-sienna-400 lg:block"></div>
+      <div className="hidden bg-burnt-sienna-400 bg-gradient-to-br from-burnt-sienna-400 to-burnt-sienna-500 lg:block"></div>
     </div>
   );
 }

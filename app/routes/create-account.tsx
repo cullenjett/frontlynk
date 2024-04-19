@@ -50,7 +50,7 @@ export async function action({ request }: ActionFunctionArgs) {
 export default function CreateAccount() {
   return (
     <div className="h-full lg:grid lg:grid-cols-[2fr_3fr]">
-      <div className="hidden bg-burnt-sienna-400 lg:block"></div>
+      <div className="hidden bg-burnt-sienna-400 bg-gradient-to-bl from-burnt-sienna-400 to-burnt-sienna-500 lg:block"></div>
 
       <div className="flex h-full items-center justify-center px-5 py-12">
         <div className="mx-auto grid w-full max-w-[420px] gap-6">
