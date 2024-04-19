@@ -41,10 +41,10 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function DashboardLayout() {
   return (
-    <div className="h-screen bg-muted">
+    <div className="flex h-screen bg-muted">
       <Sidebar />
 
-      <div className="relative flex h-full flex-col sm:pl-56">
+      <div className="relative flex h-full flex-1 flex-col">
         <Header />
 
         <main className="container grid max-h-full flex-1 overflow-y-auto px-4 py-6">
@@ -121,7 +121,7 @@ function AccountDropdown() {
 
 function Sidebar() {
   return (
-    <aside className="fixed inset-y-0 left-0 z-10 hidden w-56 flex-col bg-background sm:flex">
+    <aside className="sticky bottom-0 left-0 top-0 z-10 hidden w-56 flex-col overflow-y-auto bg-background sm:flex">
       <nav className="flex flex-col items-center gap-2 px-2 py-4">
         <Link
           to="/dashboard"
@@ -166,7 +166,7 @@ function NavItem({
       end
       className={({ isActive }) =>
         cn(
-          'flex w-full items-center gap-5 rounded-lg p-3 pl-8 no-underline transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+          'flex w-full items-center gap-5 rounded-sm p-3 pl-8 no-underline transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
           {
             'bg-primary text-primary-foreground hover:bg-primary/90': isActive
           }
