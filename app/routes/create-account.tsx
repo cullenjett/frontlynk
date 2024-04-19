@@ -53,7 +53,7 @@ export default function CreateAccount() {
       <div className="hidden bg-burnt-sienna-400 lg:block"></div>
 
       <div className="flex h-full items-center justify-center px-5 py-12">
-        <div className="max-w- mx-auto grid w-full max-w-[420px] gap-6">
+        <div className="mx-auto grid w-full max-w-[420px] gap-6">
           <h1 className="text-center text-3xl font-bold">Create Account</h1>
           <RegisterForm />
         </div>

@@ -4,8 +4,15 @@ import {
   MetaFunction,
   json
 } from '@remix-run/node';
-import { Form, Link, NavLink, Outlet, useLoaderData } from '@remix-run/react';
-import { FileBadge, LayoutGrid, User } from 'lucide-react';
+import {
+  Form,
+  Link,
+  NavLink,
+  Outlet,
+  useLoaderData,
+  useLocation
+} from '@remix-run/react';
+import { FileBadge, LayoutGrid, User, UsersRound } from 'lucide-react';
 
 import { GeneralErrorBoundary } from '~/components/error-boundary';
 import { Button } from '~/components/ui/button';
@@ -55,11 +62,24 @@ export default function DashboardLayout() {
   );
 }
 
+const pathToTitle: Record<string, React.ReactNode> = {
+  '/dashboard': 'Dashboard',
+  '/dashboard/bench': 'Bench',
+  '/dashboard/certificates': 'Certificates',
+  '/dashboard/settings': 'Settings',
+  '/dashboard/help': 'Help'
+};
+
 function Header() {
+  const location = useLocation();
+  const path = location.pathname;
+
   return (
-    <header className="sticky left-56 right-0 top-0 bg-background">
+    <header className="sticky left-56 right-0 top-0 bg-background shadow-md">
       <div className="container flex items-center gap-6 px-6 py-4">
-        <h1 className="text-xl font-bold tracking-tight">Dashboard</h1>
+        <h1 className="text-xl font-bold tracking-tight">
+          {pathToTitle[path] || 'Dashboard'}
+        </h1>
 
         <div className="ml-auto">
           <AccountDropdown />
@@ -138,6 +158,10 @@ function Sidebar() {
 
         <NavItem to="/dashboard" icon={<LayoutGrid className="size-5" />}>
           Overview
+        </NavItem>
+
+        <NavItem to="/dashboard/bench" icon={<UsersRound className="size-5" />}>
+          Bench
         </NavItem>
 
         <NavItem

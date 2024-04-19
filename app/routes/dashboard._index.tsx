@@ -12,8 +12,8 @@ export default function Dashboard() {
       </div>
 
       <div className="grid flex-1 grid-cols-[2fr_1fr] gap-4">
-        <Card title="Onboarding"></Card>
-        <Card title="Recent Activity"></Card>
+        <Card></Card>
+        <Card></Card>
       </div>
     </div>
   );
