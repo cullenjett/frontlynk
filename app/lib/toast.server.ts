@@ -8,6 +8,7 @@ export const toastKey = 'toast';
 
 const ToastSchema = z.object({
   description: z.string().optional(),
+  duration: z.number().optional(),
   id: z.string().default(() => randomUUID()),
   title: z.string().optional(),
   type: z.enum(['message', 'success', 'error']).default('message')

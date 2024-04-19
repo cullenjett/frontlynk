@@ -35,7 +35,8 @@ export async function createAccount(
     lastName?: string;
     email: string;
     password: string;
-  }
+  },
+  responseInit?: ResponseInit
 ) {
   // TODO: create a real account
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -48,15 +49,20 @@ export async function createAccount(
   });
 
   throw redirect('/dashboard', {
-    headers: {
-      'Set-Cookie': await sessionStorage.commitSession(session)
-    }
+    ...responseInit,
+    headers: combineHeaders(
+      {
+        'Set-Cookie': await sessionStorage.commitSession(session)
+      },
+      responseInit?.headers
+    )
   });
 }
 
 export async function login(
   request: Request,
-  credentials: { email: string; password: string }
+  credentials: { email: string; password: string },
+  responseInit?: ResponseInit
 ) {
   // TODO: validate credentials
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -69,9 +75,13 @@ export async function login(
   });
 
   throw redirect('/dashboard', {
-    headers: {
-      'Set-Cookie': await sessionStorage.commitSession(session)
-    }
+    ...responseInit,
+    headers: combineHeaders(
+      {
+        'Set-Cookie': await sessionStorage.commitSession(session)
+      },
+      responseInit?.headers
+    )
   });
 }
 

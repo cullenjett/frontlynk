@@ -64,7 +64,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             __html: `window.ENV = ${JSON.stringify(data?.ENV)}`
           }}
         />
-        <Toaster richColors expand />
+        <Toaster />
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -82,7 +82,8 @@ function useToast(toast?: Toast | null) {
       setTimeout(() => {
         showToast[toast.type](toast.title, {
           id: toast.id,
-          description: toast.description
+          description: toast.description,
+          duration: toast.duration
         });
       }, 0);
     }

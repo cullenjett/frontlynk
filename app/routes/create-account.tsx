@@ -14,6 +14,7 @@ import { z } from 'zod';
 import { Field } from '~/components/forms';
 import { Button } from '~/components/ui/button';
 import { createAccount } from '~/lib/session.server';
+import { createToastHeaders } from '~/lib/toast.server';
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Create Account' }];
@@ -44,7 +45,14 @@ export async function action({ request }: ActionFunctionArgs) {
     return json(submission.reply());
   }
 
-  return createAccount(request, submission.value);
+  return createAccount(request, submission.value, {
+    headers: await createToastHeaders({
+      type: 'success',
+      title: 'Welcome to Sublynk!',
+      description: 'Check out the onboarding section to get started',
+      duration: 8000
+    })
+  });
 }
 
 export default function CreateAccount() {
