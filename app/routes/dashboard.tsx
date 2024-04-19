@@ -12,7 +12,7 @@ import {
   useLoaderData,
   useLocation
 } from '@remix-run/react';
-import { FileBadge, LayoutGrid, User, UsersRound } from 'lucide-react';
+import { Contact, FileBadge, LayoutGrid, User } from 'lucide-react';
 
 import { GeneralErrorBoundary } from '~/components/error-boundary';
 import { Button } from '~/components/ui/button';
@@ -64,7 +64,7 @@ export default function DashboardLayout() {
 
 const pathToTitle: Record<string, React.ReactNode> = {
   '/dashboard': 'Dashboard',
-  '/dashboard/bench': 'Bench',
+  '/dashboard/network': 'Network',
   '/dashboard/certificates': 'Certificates',
   '/dashboard/settings': 'Settings',
   '/dashboard/help': 'Help'
@@ -160,8 +160,8 @@ function Sidebar() {
           Overview
         </NavItem>
 
-        <NavItem to="/dashboard/bench" icon={<UsersRound className="size-5" />}>
-          Bench
+        <NavItem to="/dashboard/network" icon={<Contact className="size-5" />}>
+          Network
         </NavItem>
 
         <NavItem
