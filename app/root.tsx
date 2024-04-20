@@ -19,14 +19,14 @@ import tailwind from './tailwind.css?url';
 
 export const links: LinksFunction = () => {
   return [
+    { rel: 'stylesheet', href: tailwind },
     {
       rel: 'preload',
       href: '/fonts/inter.woff2',
       as: 'font',
       type: 'font/woff2',
       crossOrigin: 'anonymous'
-    },
-    { rel: 'stylesheet', href: tailwind }
+    }
   ];
 };
 

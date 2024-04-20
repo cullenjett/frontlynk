@@ -56,7 +56,7 @@ export default function DashboardLayout() {
       <div className="relative flex h-full flex-1 flex-col">
         <Header />
 
-        <main className="container grid max-h-full flex-1 overflow-y-auto py-6 md:px-4">
+        <main className="container grid max-h-full flex-1 overflow-y-auto py-6">
           <Outlet />
         </main>
       </div>
@@ -79,7 +79,7 @@ function Header() {
 
   return (
     <header className="sticky left-56 right-0 top-0 bg-background shadow-md">
-      <div className="container flex items-center gap-6 py-4 md:px-6">
+      <div className="container flex items-center gap-6 py-4">
         <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
           <SheetTrigger asChild>
             <Button size="icon" variant="outline" className="md:hidden">
@@ -232,7 +232,7 @@ function NavItem({
       onClick={onClick}
       className={({ isActive }) =>
         cn(
-          'flex w-full items-center gap-5 rounded-sm p-3 pl-8 no-underline transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+          'flex w-full items-center gap-5 rounded-lg p-3 pl-8 no-underline transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
           {
             'bg-primary text-primary-foreground hover:bg-primary/90': isActive
           }

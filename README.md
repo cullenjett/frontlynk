@@ -6,11 +6,12 @@ Frontend app built with [Remix](https://remix.run/docs)
 
 - Install Node.js v20
   - If you don't have Node.js you can install it with [fnm](https://github.com/Schniz/fnm?tab=readme-ov-file):
-    1. `curl -fsSL https://fnm.vercel.app/install | bash`
-    2. `fnm install 20`
-    3. `fnm default 20`
-- Run `npm install` to install local dependencies. If you use the recommended VS Code plugins you'll need these installed for editor integrations to work.
-- Setup environment variables: `cp .env.example .env`
+    - `curl -fsSL https://fnm.vercel.app/install | bash`
+    - `fnm install 20`
+    - `fnm default 20`
+- Run `npm install` to install local dependencies.
+  - If you use the recommended VS Code plugins you'll need these installed for editor integrations to work.
+- Run `cp .env.example .env` to set up local environment variables
 
 ## Local Development
 
@@ -20,7 +21,7 @@ npm run dev
 ```
 
 ```sh
-# Run the with docker compose
+# Or run with docker compose
 docker compose up --build
 ```
 

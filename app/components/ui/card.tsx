@@ -6,10 +6,10 @@ import { cn } from '~/lib/styles';
 const cardVariants = cva(null, {
   variants: {
     decoration: {
-      blue: 'border-t-4 border-t-jordy-blue',
-      orange: 'border-t-4 border-t-burnt-sienna',
-      dark: 'border-t-4 border-t-mirage',
-      green: 'border-t-4 border-t-blue-chill'
+      primary: 'border-t-4 border-t-brand-primary',
+      secondary: 'border-t-4 border-t-brand-secondary',
+      dark: 'border-t-4 border-t-brand-dark',
+      success: 'border-t-4 border-t-success'
     }
   }
 });

@@ -47,7 +47,7 @@ export default {
           950: '#2d2d34',
           DEFAULT: '#2d2d34'
         },
-        mirage: {
+        'oxford-blue': {
           50: '#edf6ff',
           100: '#def0ff',
           200: '#c4e2ff',
@@ -97,12 +97,31 @@ export default {
           400: '#37d3ff',
           500: '#09b3ff',
           600: '#008eff',
+          DEFAULT: '#008eff',
           700: '#0075ff',
           800: '#0060d6',
           900: '#0155a7',
-          950: '#083d77',
-          DEFAULT: '#083d77'
+          950: '#083d77'
         },
+        'spring-green': {
+          50: '#f3faf5',
+          100: '#e2f6ea',
+          200: '#c7ebd6',
+          300: '#9bdab6',
+          400: '#68c08e',
+          DEFAULT: '#68c08e',
+          500: '#43a46d',
+          600: '#328757',
+          700: '#2c6e49',
+          800: '#26553b',
+          900: '#214632',
+          950: '#0d2619'
+        },
+
+        'brand-dark': '#0d142a',
+        'brand-primary': '#008eff',
+        'brand-secondary': '#e57c55',
+        success: '#68c08e',
 
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
