@@ -98,3 +98,14 @@ export async function logout(request: Request, responseInit?: ResponseInit) {
     )
   });
 }
+
+export async function resetPassword(
+  _request: Request,
+  _email: string,
+  responseInit?: ResponseInit
+) {
+  // TODO: reset password
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  throw redirect('/', responseInit);
+}
