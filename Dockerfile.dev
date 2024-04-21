@@ -8,4 +8,4 @@ FROM base
 WORKDIR /myapp
 COPY --from=base /myapp/node_modules ./node_modules
 COPY . .
-ENTRYPOINT [ "node", "server.js" ]
+ENTRYPOINT [ "node", "--inspect=0.0.0.0", "server.js" ]

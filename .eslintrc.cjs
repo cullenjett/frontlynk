@@ -67,7 +67,8 @@ module.exports = {
           }
         ],
         'prefer-const': 'off',
-        '@typescript-eslint/no-namespace': 'off'
+        '@typescript-eslint/no-namespace': 'off',
+        'no-debugger': 'warn'
       }
     },
 
