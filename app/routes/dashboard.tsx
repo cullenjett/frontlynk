@@ -12,7 +12,13 @@ import {
   useLoaderData,
   useLocation
 } from '@remix-run/react';
-import { Contact, FileBadge, LayoutGrid, PanelLeft, User } from 'lucide-react';
+import {
+  Building2,
+  LayoutGrid,
+  PanelLeft,
+  User,
+  UsersRound
+} from 'lucide-react';
 import { useState } from 'react';
 
 import { GeneralErrorBoundary } from '~/components/error-boundary';
@@ -67,7 +73,7 @@ export default function DashboardLayout() {
 const pathToTitle: Record<string, React.ReactNode> = {
   '/dashboard': 'Dashboard',
   '/dashboard/network': 'Network',
-  '/dashboard/certificates': 'Certificates',
+  '/dashboard/organization': 'My Org',
   '/dashboard/settings': 'Settings',
   '/dashboard/help': 'Help'
 };
@@ -78,7 +84,7 @@ function Header() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
-    <header className="sticky left-56 right-0 top-0 bg-background shadow-md">
+    <header className="sticky left-56 right-0 top-0 bg-background shadow-sm">
       <div className="container flex items-center gap-6 py-4">
         <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
           <SheetTrigger asChild>
@@ -99,18 +105,18 @@ function Header() {
 
               <NavItem
                 to="/dashboard/network"
-                icon={<Contact className="size-5" />}
+                icon={<UsersRound className="size-5" />}
                 onClick={() => setMobileNavOpen(false)}
               >
                 Network
               </NavItem>
 
               <NavItem
-                to="/dashboard/certificates"
-                icon={<FileBadge className="size-5" />}
+                to="/dashboard/organization"
+                icon={<Building2 className="size-5" />}
                 onClick={() => setMobileNavOpen(false)}
               >
-                Certificates
+                My Org
               </NavItem>
             </nav>
           </SheetContent>
@@ -139,9 +145,9 @@ function AccountDropdown() {
           size="icon"
           variant="outline"
           className="rounded-full"
-          aria-label="Account menu"
         >
           <User />
+          <span className="sr-only">Toggle My Account Menu</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-56">
@@ -184,7 +190,7 @@ function Sidebar() {
       <nav className="flex flex-col items-center gap-2 px-2 py-4">
         <Link
           to="/dashboard"
-          className="mb-16 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="mb-16 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
           <img
             className="rounded-full"
@@ -199,15 +205,18 @@ function Sidebar() {
           Overview
         </NavItem>
 
-        <NavItem to="/dashboard/network" icon={<Contact className="size-5" />}>
+        <NavItem
+          to="/dashboard/network"
+          icon={<UsersRound className="size-5" />}
+        >
           Network
         </NavItem>
 
         <NavItem
-          to="/dashboard/certificates"
-          icon={<FileBadge className="size-5" />}
+          to="/dashboard/organization"
+          icon={<Building2 className="size-5" />}
         >
-          Certificates
+          My Org
         </NavItem>
       </nav>
     </aside>

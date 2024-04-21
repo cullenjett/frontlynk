@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - dev
+      - develop
   pull_request:
 
 concurrency:
@@ -110,8 +110,8 @@ jobs:
     name: 🚀 Deploy
     runs-on: ubuntu-latest
     needs: [lint, typecheck, vitest, playwright]
-    # only deploy main/dev branch on pushes
-    if: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') && github.event_name == 'push' }}
+    # only deploy main/develop branch on pushes
+    if: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop') && github.event_name == 'push' }}
 
     steps:
       - name: ⬇️ Checkout repo
@@ -120,7 +120,7 @@ jobs:
       # TODO: build and deploy
 
       - name: 🚀 Deploy Develop
-        if: ${{ github.ref == 'refs/heads/dev' }}
+        if: ${{ github.ref == 'refs/heads/develop' }}
         run: echo "deploying to develop..."
 
       - name: 🚀 Deploy Production
